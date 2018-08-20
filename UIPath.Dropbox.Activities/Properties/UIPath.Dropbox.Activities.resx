@@ -133,17 +133,46 @@
   <data name="FilePath" xml:space="preserve">
     <value>File path</value>
   </data>
+  <data name="Files" xml:space="preserve">
+    <value>Files</value>
+  </data>
   <data name="FolderPath" xml:space="preserve">
     <value>Folder path</value>
   </data>
   <data name="Input" xml:space="preserve">
     <value>Input</value>
   </data>
+  <data name="LocalFilePath" xml:space="preserve">
+    <value>Local file path</value>
+    <comment>Local path of file to upload</comment>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="Output" xml:space="preserve">
+    <value>Output</value>
+  </data>
   <data name="Path" xml:space="preserve">
     <value>Path</value>
     <comment>Path of file or folder to be deleted from Dropbox.</comment>
   </data>
+  <data name="Recursive" xml:space="preserve">
+    <value>Recursive</value>
+    <comment>Process Dropbox folder recursively</comment>
+  </data>
   <data name="Session" xml:space="preserve">
     <value>Session</value>
+  </data>
+  <data name="SourcePath" xml:space="preserve">
+    <value>Source path</value>
+    <comment>Source path of Dropbox file or folder</comment>
+  </data>
+  <data name="TargetPath" xml:space="preserve">
+    <value>Target path</value>
+    <comment>Target path of Dropbox file or folder</comment>
+  </data>
+  <data name="UploadFolder" xml:space="preserve">
+    <value>Upload folder</value>
+    <comment>Path in Dropbox to upload the file.</comment>
   </data>
 </root>

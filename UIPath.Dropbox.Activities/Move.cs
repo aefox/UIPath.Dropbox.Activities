@@ -7,16 +7,17 @@ using UIPath.Dropbox.Activities.Properties;
 
 namespace UIPath.Dropbox.Activities
 {
-    public sealed class CreateFile : ContinuableAsyncCodeActivity
+    public sealed class Move : ContinuableAsyncCodeActivity
     {
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.FilePath))]
-        public InArgument<string> FilePath { get; set; }
+        [LocalizedDisplayName(nameof(Resources.SourcePath))]
+        public InArgument<string> SourcePath { get; set; }
 
+        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.FileContent))]
-        public InArgument<string> FileContent { get; set; }
+        [LocalizedDisplayName(nameof(Resources.TargetPath))]
+        public InArgument<string> TargetPath { get; set; }
 
         protected override async Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
@@ -28,16 +29,7 @@ namespace UIPath.Dropbox.Activities
                 throw new InvalidOperationException(Resources.DropboxSessionNotFoundException);
             }
 
-            var fileContent = FileContent.Get(context);
-
-            if (string.IsNullOrEmpty(fileContent))
-            {
-                await dropboxSession.CreateEmptyFileAsync(FilePath.Get(context), cancellationToken);
-            }
-            else
-            {
-                await dropboxSession.CreateFileWithContentAsync(FilePath.Get(context), fileContent, cancellationToken);
-            }
+            await dropboxSession.MoveAsync(SourcePath.Get(context), TargetPath.Get(context), cancellationToken);
 
             return (asyncCodeActivityContext) => { };
         }

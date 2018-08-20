@@ -7,14 +7,17 @@ using UIPath.Dropbox.Activities.Properties;
 
 namespace UIPath.Dropbox.Activities
 {
-    public sealed class DownloadFolderAsZip : ContinuableAsyncCodeActivity
+    public sealed class UploadFile : ContinuableAsyncCodeActivity
     {
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.FolderPath))]
-        public InArgument<string> FolderPath { get; set; }
+        [LocalizedDisplayName(nameof(Resources.FilePath))]
+        public InArgument<string> LocalFilePath { get; set; }
 
-        // TODO: For a better customization/user experience add InArgument<string> DownloadLocation
+        [RequiredArgument]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.FilePath))]
+        public InArgument<string> UploadFolder { get; set; }
 
         protected override async Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
@@ -26,7 +29,7 @@ namespace UIPath.Dropbox.Activities
                 throw new InvalidOperationException(Resources.DropboxSessionNotFoundException);
             }
 
-            await dropboxSession.DownloadFolderAsZipAsync(FolderPath.Get(context), cancellationToken);
+            await dropboxSession.UploadAsync(LocalFilePath.Get(context), UploadFolder.Get(context), cancellationToken);
 
             return (asyncCodeActivityContext) => { };
         }

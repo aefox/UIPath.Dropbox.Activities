@@ -106,6 +106,15 @@ namespace UIPath.Dropbox.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Files.
+        /// </summary>
+        internal static string Files {
+            get {
+                return ResourceManager.GetString("Files", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Folder path.
         /// </summary>
         internal static string FolderPath {
@@ -124,6 +133,33 @@ namespace UIPath.Dropbox.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Local file path.
+        /// </summary>
+        internal static string LocalFilePath {
+            get {
+                return ResourceManager.GetString("LocalFilePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options.
+        /// </summary>
+        internal static string Options {
+            get {
+                return ResourceManager.GetString("Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output.
+        /// </summary>
+        internal static string Output {
+            get {
+                return ResourceManager.GetString("Output", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Path.
         /// </summary>
         internal static string Path {
@@ -133,11 +169,47 @@ namespace UIPath.Dropbox.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Recursive.
+        /// </summary>
+        internal static string Recursive {
+            get {
+                return ResourceManager.GetString("Recursive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Session.
         /// </summary>
         internal static string Session {
             get {
                 return ResourceManager.GetString("Session", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source path.
+        /// </summary>
+        internal static string SourcePath {
+            get {
+                return ResourceManager.GetString("SourcePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target path.
+        /// </summary>
+        internal static string TargetPath {
+            get {
+                return ResourceManager.GetString("TargetPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload folder.
+        /// </summary>
+        internal static string UploadFolder {
+            get {
+                return ResourceManager.GetString("UploadFolder", resourceCulture);
             }
         }
     }

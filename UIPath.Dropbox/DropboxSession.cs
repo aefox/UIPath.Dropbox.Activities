@@ -1,7 +1,9 @@
 ﻿using Dropbox.Api;
 using Dropbox.Api.Files;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,11 +25,32 @@ namespace UIPath.Dropbox
             _dropboxClient = new DropboxClient(authToken);
         }
 
-        public async Task ListFolderContentAsync(string path, CancellationToken cancellationToken)
+        public async Task<IEnumerable<DropboxFileMetadata>> ListFolderContentAsync(string path, bool recursive, CancellationToken cancellationToken)
         {
             ValidatePathAndCancellationToken(path, cancellationToken);
+            List<DropboxFileMetadata> folderContent = new List<DropboxFileMetadata>();
 
-            await _dropboxClient.Files.ListFolderAsync(path);
+            ListFolderResult list = await _dropboxClient.Files.ListFolderAsync(path);
+
+            //await Task.Factory.FromAsync(_dropboxClient.Files.BeginListFolder(path, recursive), _dropboxClient.Files.EndListFolder);
+
+            folderContent.AddRange(list.Entries.Where(f => f.IsFile).Select(f => f.ToFileMetadata()));
+
+            //foreach (var item in list.Entries.Where(i => i.IsFile))
+            //{
+            //    Console.WriteLine("F{0,8} {1}", item.AsFile.Size, item.Name);
+            //}
+
+            if (recursive)
+            {
+                foreach (var folder in list.Entries.Where(i => i.IsFolder))
+                {
+                    //Console.WriteLine("D  {0}/", item.Name);
+                    folderContent.AddRange(await ListFolderContentAsync(folder.PathLower, recursive, cancellationToken));
+                }
+            }
+
+            return null;
         }
 
         public async Task CreateFolderAsync(string path, CancellationToken cancellationToken)
@@ -82,11 +105,22 @@ namespace UIPath.Dropbox
             await _dropboxClient.Files.DeleteV2Async(path);
         }
 
-        public async Task UploadAsync(string path, CancellationToken cancellationToken)
+        public async Task UploadAsync(string filePath, string uploadFolder, CancellationToken cancellationToken)
         {
-            ValidatePathAndCancellationToken(path, cancellationToken);
+            ValidatePathAndCancellationToken(filePath, cancellationToken);
+            ValidateStringIsNotNullOrEmpty(uploadFolder);
+            // TODO: validate format of uploadFolder to start with "/" ?
 
-            var fileMetadata = await _dropboxClient.Files.UploadAsync(path);
+            var fileMetadata = await _dropboxClient.Files.UploadAsync(filePath);
+
+            using (FileStream stream = File.Open(filePath, FileMode.Open))
+            {
+                await _dropboxClient.Files.UploadAsync(
+                    uploadFolder + "/" + Path.GetFileName(filePath),
+                    WriteMode.Overwrite.Instance,
+                    body: stream
+                );
+            }
         }
 
         public async Task DownloadFileAsync(string path, CancellationToken cancellationToken)

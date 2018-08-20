@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Activities;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,14 +8,20 @@ using UIPath.Dropbox.Activities.Properties;
 
 namespace UIPath.Dropbox.Activities
 {
-    public sealed class DownloadFolderAsZip : ContinuableAsyncCodeActivity
+    public sealed class GetFolderContent : ContinuableAsyncCodeActivity
     {
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.FolderPath))]
         public InArgument<string> FolderPath { get; set; }
 
-        // TODO: For a better customization/user experience add InArgument<string> DownloadLocation
+        [LocalizedCategory(nameof(Resources.Options))]
+        [LocalizedDisplayName(nameof(Resources.Recursive))]
+        public bool Recursive { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Output))]
+        [LocalizedDisplayName(nameof(Resources.Files))]
+        public OutArgument<IEnumerable<DropboxFileMetadata>> Files { get; set; }
 
         protected override async Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
@@ -26,9 +33,12 @@ namespace UIPath.Dropbox.Activities
                 throw new InvalidOperationException(Resources.DropboxSessionNotFoundException);
             }
 
-            await dropboxSession.DownloadFolderAsZipAsync(FolderPath.Get(context), cancellationToken);
+            IEnumerable<DropboxFileMetadata> files = await dropboxSession.ListFolderContentAsync(FolderPath.Get(context), Recursive, cancellationToken);
 
-            return (asyncCodeActivityContext) => { };
+            return (asyncCodeActivityContext) =>
+            {
+                Files.Set(asyncCodeActivityContext, files);
+            };
         }
     }
 }

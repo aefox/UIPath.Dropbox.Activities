@@ -14,7 +14,7 @@ namespace UIPath.Dropbox.Activities
         [LocalizedDisplayName(nameof(Resources.FilePath))]
         public InArgument<string> FilePath { get; set; }
 
-        // TODO: do we need InArgument<string> DownloadLocation? For a better customization/user experience most probably yes
+        // TODO: For a better customization/user experience add InArgument<string> DownloadLocation
 
         protected override async Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {

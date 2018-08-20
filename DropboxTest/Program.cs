@@ -46,9 +46,9 @@ namespace DropboxTest
 
                     //await ListRootFolder(dbx);
 
-                    await ListRootFolder(dbx, "/test-folder");
+                    var x = await ListRootFolder(dbx, "", true);
 
-                    var x = await dbx.Files.GetMetadataAsync("/test-folder");
+                    //var x = await dbx.Files.GetMetadataAsync("/test-folder");
                     return 1;
                 }
             }
@@ -59,20 +59,45 @@ namespace DropboxTest
             }
         }
 
-        async Task ListRootFolder(DropboxClient dbx, string path = "")
+        async Task<IEnumerable<Metadata>> ListRootFolder(DropboxClient dbx, string path = "", bool recursive = false)
         {
-            var list = await dbx.Files.ListFolderAsync(path);
+            List<Metadata> folderContent = new List<Metadata>();
+            ListFolderResult list = await dbx.Files.ListFolderAsync(path);
 
-            // show folders then files
-            foreach (var item in list.Entries.Where(i => i.IsFolder))
+            //await Task.Factory.FromAsync(_dropboxClient.Files.BeginListFolder(path, recursive), _dropboxClient.Files.EndListFolder);
+
+            folderContent.AddRange(list.Entries.Where(f => f.IsFile).ToList());
+
+            //foreach (var item in list.Entries.Where(i => i.IsFile))
+            //{
+            //    Console.WriteLine("F{0,8} {1}", item.AsFile.Size, item.Name);
+            //}
+
+            if (recursive)
             {
-                Console.WriteLine("D  {0}/", item.Name);
+                foreach (var folder in list.Entries.Where(i => i.IsFolder))
+                {
+                    //Console.WriteLine("D  {0}/", item.Name);
+                    folderContent.AddRange(await ListRootFolder(dbx, folder.PathLower, recursive));
+                }
             }
 
-            foreach (var item in list.Entries.Where(i => i.IsFile))
-            {
-                Console.WriteLine("F{0,8} {1}", item.AsFile.Size, item.Name);
-            }
+            return folderContent;
+
+
+
+            //var list = await dbx.Files.ListFolderAsync(path);
+
+            //// show folders then files
+            //foreach (var item in list.Entries.Where(i => i.IsFolder))
+            //{
+            //    Console.WriteLine("D  {0}/", item.Name);
+            //}
+
+            //foreach (var item in list.Entries.Where(i => i.IsFile))
+            //{
+            //    Console.WriteLine("F{0,8} {1}", item.AsFile.Size, item.Name);
+            //}
         }
 
         async Task Upload(DropboxClient dbx, string folder, string file, string content)
