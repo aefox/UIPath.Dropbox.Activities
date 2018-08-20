@@ -7,12 +7,17 @@ using UIPath.Dropbox.Activities.Properties;
 
 namespace UIPath.Dropbox.Activities
 {
-    public sealed class Delete : ContinuableAsyncCodeActivity
+    public sealed class CreateFile : ContinuableAsyncCodeActivity
     {
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.Path))]
-        public InArgument<string> Path { get; set; }
+        [LocalizedDisplayName(nameof(Resources.FilePath))]
+        public InArgument<string> FilePath { get; set; }
+
+        [RequiredArgument]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.FileContent))]
+        public InArgument<string> FileContent { get; set; }
 
         protected override async Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
@@ -24,7 +29,7 @@ namespace UIPath.Dropbox.Activities
                 throw new InvalidOperationException(Resources.DropboxSessionNotFoundException);
             }
 
-            await dropboxSession.DeleteAsync(Path.Get(context), cancellationToken);
+            await dropboxSession.CreateFileWithContentAsync(FilePath.Get(context), FileContent.Get(context), cancellationToken);
 
             return (asyncCodeActivityContext) => { };
         }

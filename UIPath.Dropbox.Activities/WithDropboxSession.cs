@@ -57,8 +57,8 @@ namespace UIPath.Dropbox.Activities
 
         private void OnFaulted(NativeActivityFaultContext faultContext, Exception propagatedException, ActivityInstance propagatedFrom)
         {
-            PropertyDescriptor ftpSessionProperty = faultContext.DataContext.GetProperties()[DropboxSessionPropertyName];
-            IDropboxSession dropboxSession = ftpSessionProperty?.GetValue(faultContext.DataContext) as IDropboxSession;
+            PropertyDescriptor dropboxSessionProperty = faultContext.DataContext.GetProperties()[DropboxSessionPropertyName];
+            IDropboxSession dropboxSession = dropboxSessionProperty?.GetValue(faultContext.DataContext) as IDropboxSession;
 
             dropboxSession?.Dispose();
         }

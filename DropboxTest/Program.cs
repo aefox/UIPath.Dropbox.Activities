@@ -48,7 +48,7 @@ namespace DropboxTest
 
                     await ListRootFolder(dbx, "/test-folder");
 
-                    //var x = await dbx.Files.GetMetadataAsync("/test-folder/test-file.txt");
+                    var x = await dbx.Files.GetMetadataAsync("/test-folder");
                     return 1;
                 }
             }

@@ -7,24 +7,26 @@ using UIPath.Dropbox.Activities.Properties;
 
 namespace UIPath.Dropbox.Activities
 {
-    public sealed class Delete : ContinuableAsyncCodeActivity
+    public sealed class DownloadFile : ContinuableAsyncCodeActivity
     {
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.Path))]
-        public InArgument<string> Path { get; set; }
+        [LocalizedDisplayName(nameof(Resources.FilePath))]
+        public InArgument<string> FilePath { get; set; }
+
+        // TODO: do we need InArgument<string> DownloadLocation? For a better customization/user experience most probably yes
 
         protected override async Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
-            PropertyDescriptor dropboxSessionFactory = context.DataContext.GetProperties()[WithDropboxSession.DropboxSessionPropertyName];
-            IDropboxSession dropboxSession = dropboxSessionFactory?.GetValue(context.DataContext) as IDropboxSession;
+            PropertyDescriptor dropboxSessionProperty = context.DataContext.GetProperties()[WithDropboxSession.DropboxSessionPropertyName];
+            IDropboxSession dropboxSession = dropboxSessionProperty?.GetValue(context.DataContext) as IDropboxSession;
 
             if (dropboxSession == null)
             {
                 throw new InvalidOperationException(Resources.DropboxSessionNotFoundException);
             }
 
-            await dropboxSession.DeleteAsync(Path.Get(context), cancellationToken);
+            await dropboxSession.DownloadFileAsync(FilePath.Get(context), cancellationToken);
 
             return (asyncCodeActivityContext) => { };
         }

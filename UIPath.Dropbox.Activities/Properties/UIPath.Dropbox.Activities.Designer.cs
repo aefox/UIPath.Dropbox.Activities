@@ -88,6 +88,33 @@ namespace UIPath.Dropbox.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File content.
+        /// </summary>
+        internal static string FileContent {
+            get {
+                return ResourceManager.GetString("FileContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File path.
+        /// </summary>
+        internal static string FilePath {
+            get {
+                return ResourceManager.GetString("FilePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder path.
+        /// </summary>
+        internal static string FolderPath {
+            get {
+                return ResourceManager.GetString("FolderPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Input.
         /// </summary>
         internal static string Input {

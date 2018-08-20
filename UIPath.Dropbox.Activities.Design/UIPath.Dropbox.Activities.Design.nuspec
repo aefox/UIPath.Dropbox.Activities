@@ -6,7 +6,7 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <projectUrl>https://activities.uipath.com/docs/ftp</projectUrl>
+    <projectUrl>https://github.com/aefox/UIPath.Dropbox.Activities</projectUrl>
     <iconUrl>http://www.uipath.com/favicon.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>

@@ -126,6 +126,16 @@
   <data name="DropboxSessionNotFoundException" xml:space="preserve">
     <value>Dropbox session not found. You need to run this activity inside WithDropboxSession.</value>
   </data>
+  <data name="FileContent" xml:space="preserve">
+    <value>File content</value>
+    <comment>Text which will be added to the file upon creation</comment>
+  </data>
+  <data name="FilePath" xml:space="preserve">
+    <value>File path</value>
+  </data>
+  <data name="FolderPath" xml:space="preserve">
+    <value>Folder path</value>
+  </data>
   <data name="Input" xml:space="preserve">
     <value>Input</value>
   </data>

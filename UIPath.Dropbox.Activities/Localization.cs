@@ -7,10 +7,7 @@ namespace UIPath.Dropbox.Activities
     [AttributeUsage(AttributeTargets.Property)]
     public class LocalizedCategoryAttribute : CategoryAttribute
     {
-        public LocalizedCategoryAttribute(string category)
-            : base(category)
-        {
-        }
+        public LocalizedCategoryAttribute(string category) : base(category) { }
 
         protected override string GetLocalizedString(string value)
         {
@@ -21,11 +18,7 @@ namespace UIPath.Dropbox.Activities
     [AttributeUsage(AttributeTargets.Property)]
     public class LocalizedDisplayNameAttribute : DisplayNameAttribute
     {
-        public LocalizedDisplayNameAttribute(string displayName)
-            : base(displayName)
-        {
-
-        }
+        public LocalizedDisplayNameAttribute(string displayName) : base(displayName) { }
 
         public override string DisplayName
         {
