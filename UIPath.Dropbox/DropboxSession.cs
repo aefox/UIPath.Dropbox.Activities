@@ -18,10 +18,7 @@ namespace UIPath.Dropbox
         // _dropboxClient = DropboxClientFactory.NewClient(dc);
         public DropboxSession(string authToken)
         {
-            if (string.IsNullOrEmpty(authToken))
-            {
-                throw new ArgumentNullException(nameof(authToken));
-            }
+            ValidateStringIsNotNullOrEmpty(authToken);
 
             _dropboxClient = new DropboxClient(authToken);
         }
@@ -35,19 +32,31 @@ namespace UIPath.Dropbox
 
         public async Task CreateFolderAsync(string path, CancellationToken cancellationToken)
         {
+            ValidatePathAndCancellationToken(path, cancellationToken);
+
             await _dropboxClient.Files.CreateFolderV2Async(path);
         }
 
-        public async Task CreateFileAsync(string path, string content, CancellationToken cancellationToken)
+        public async Task CreateFileWithContentAsync(string path, string content, CancellationToken cancellationToken)
         {
+            ValidatePathAndCancellationToken(path, cancellationToken);
+            ValidateStringIsNotNullOrEmpty(content);
+
             using (var mem = new MemoryStream(Encoding.UTF8.GetBytes(content)))
             {
-                var updated = await _dropboxClient.Files.UploadAsync(
+                await _dropboxClient.Files.UploadAsync(
                     path,
                     WriteMode.Overwrite.Instance,
                     body: mem
                 );
             }
+        }
+
+        public async Task CreateEmptyFileAsync(string path, CancellationToken cancellationToken)
+        {
+            ValidatePathAndCancellationToken(path, cancellationToken);
+
+            await _dropboxClient.Files.UploadAsync(path, WriteMode.Overwrite.Instance);
         }
 
         public async Task CopyAsync(string fromPath, string toPath, CancellationToken cancellationToken)
@@ -80,7 +89,7 @@ namespace UIPath.Dropbox
             var fileMetadata = await _dropboxClient.Files.UploadAsync(path);
         }
 
-        public async Task DownloadAsync(string path, CancellationToken cancellationToken)
+        public async Task DownloadFileAsync(string path, CancellationToken cancellationToken)
         {
             ValidatePathAndCancellationToken(path, cancellationToken);
 
@@ -88,7 +97,7 @@ namespace UIPath.Dropbox
             await _dropboxClient.Files.DownloadAsync(path);
         }
 
-        public async Task DownloadZipAsync(string path, CancellationToken cancellationToken)
+        public async Task DownloadFolderAsZipAsync(string path, CancellationToken cancellationToken)
         {
             ValidatePathAndCancellationToken(path, cancellationToken);
 
