@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 using UIPath.Dropbox.Activities.Properties;
+using UIPath.Dropbox.Shared.Activities;
 
 namespace UIPath.Dropbox.Activities
 {
@@ -16,7 +17,7 @@ namespace UIPath.Dropbox.Activities
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.FilePath))]
+        [LocalizedDisplayName(nameof(Resources.UploadFolder))]
         public InArgument<string> UploadFolder { get; set; }
 
         protected override async Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)

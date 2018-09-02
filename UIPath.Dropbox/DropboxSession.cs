@@ -111,32 +111,75 @@ namespace UIPath.Dropbox
             ValidateStringIsNotNullOrEmpty(uploadFolder);
             // TODO: validate format of uploadFolder to start with "/" ?
 
-            var fileMetadata = await _dropboxClient.Files.UploadAsync(filePath);
+            //var fileMetadata = await _dropboxClient.Files.UploadAsync(filePath);
 
             using (FileStream stream = File.Open(filePath, FileMode.Open))
             {
                 await _dropboxClient.Files.UploadAsync(
-                    uploadFolder + "/" + Path.GetFileName(filePath),
+                    //uploadFolder + "/" + Path.GetFileName(filePath),
+                    uploadFolder,
                     WriteMode.Overwrite.Instance,
                     body: stream
                 );
             }
         }
 
-        public async Task DownloadFileAsync(string path, CancellationToken cancellationToken)
+        public async Task DownloadFileAsync(string path, string downloadFolder, CancellationToken cancellationToken)
         {
             ValidatePathAndCancellationToken(path, cancellationToken);
 
             // TODO: validate path refers to file
-            await _dropboxClient.Files.DownloadAsync(path);
+            var response = await _dropboxClient.Files.DownloadAsync(path);
+            
+            //using (var fileStream = File.Create(downloadFolder + "\\" + response.Response.Name))
+            //{
+            //    var contentStream = await response.GetContentAsStreamAsync();
+            //    contentStream.CopyTo(fileStream);
+            //}
+
+            ulong fileSize = response.Response.Size;
+            const int bufferSize = 1024 * 1024;
+
+            var buffer = new byte[bufferSize];
+
+            using (var stream = await response.GetContentAsStreamAsync())
+            {
+                using (var file = new FileStream(downloadFolder + "\\" + response.Response.Name, FileMode.OpenOrCreate))
+                {
+                    var length = stream.Read(buffer, 0, bufferSize);
+
+                    while (length > 0)
+                    {
+                        file.Write(buffer, 0, length);
+                        //var percentage = 100 * (ulong)file.Length / fileSize;
+                        // Update progress bar with the percentage.
+                        // progressBar.Value = (int)percentage
+                        //Console.WriteLine(percentage);
+
+                        length = stream.Read(buffer, 0, bufferSize);
+                    }
+                }
+            }
         }
 
-        public async Task DownloadFolderAsZipAsync(string path, CancellationToken cancellationToken)
+        public async Task DownloadFolderAsZipAsync(string path, string downloadFolder, string zipName, CancellationToken cancellationToken)
         {
             ValidatePathAndCancellationToken(path, cancellationToken);
 
             // TODO: validate path refers to folder; see if folder metadata gets folder size (which must be bellow 1GB) and total files in folder (which need to be under 10k)
-            await _dropboxClient.Files.DownloadZipAsync(path);
+            var response = await _dropboxClient.Files.DownloadZipAsync(path);
+            var zipFileName = response.Response.Metadata.Name;
+
+            if (!string.IsNullOrEmpty(zipName))
+            {
+                zipFileName = zipName;
+            }
+
+            using (var fileStream = File.Create(downloadFolder + "\\" + zipFileName))
+            {
+                var contentStream = await response.GetContentAsStreamAsync();
+                contentStream.CopyTo(fileStream);
+            }
         }
 
         #region Validators

@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 using UIPath.Dropbox.Activities.Properties;
+using UIPath.Dropbox.Shared.Activities;
 
 namespace UIPath.Dropbox.Activities
 {

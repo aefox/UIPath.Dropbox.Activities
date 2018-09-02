@@ -3,7 +3,7 @@ using System.Activities;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-namespace UIPath.Dropbox.Activities
+namespace UIPath.Dropbox.Shared.Activities
 {
     public abstract class ContinuableAsyncCodeActivity : AsyncTaskCodeActivity
     {

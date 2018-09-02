@@ -2,7 +2,7 @@
 using System.Activities.Hosting;
 using System.Collections.Generic;
 
-namespace UIPath.Dropbox.Activities
+namespace UIPath.Dropbox.Shared.Activities
 {
     internal sealed class BookmarkResumptionHelper : IWorkflowInstanceExtension
     {

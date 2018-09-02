@@ -123,6 +123,10 @@
   <data name="DefaultBodyName" xml:space="preserve">
     <value>Do</value>
   </data>
+  <data name="DownloadFolder" xml:space="preserve">
+    <value>Download to folder</value>
+    <comment>Folder in which to download the file</comment>
+  </data>
   <data name="DropboxSessionNotFoundException" xml:space="preserve">
     <value>Dropbox session not found. You need to run this activity inside WithDropboxSession.</value>
   </data>
@@ -174,5 +178,9 @@
   <data name="UploadFolder" xml:space="preserve">
     <value>Upload folder</value>
     <comment>Path in Dropbox to upload the file.</comment>
+  </data>
+  <data name="ZipFileName" xml:space="preserve">
+    <value>Zip file name</value>
+    <comment>Name of the zip file</comment>
   </data>
 </root>

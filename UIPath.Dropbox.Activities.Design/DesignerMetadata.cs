@@ -16,11 +16,15 @@ namespace UIPath.Dropbox.Activities.Design
             
             builder.AddCustomAttributes(typeof(WithDropboxSession), nameof(WithDropboxSession.Body), hideFromOutlineAttribute);
 
+            builder.AddCustomAttributes(typeof(Copy), category);
             builder.AddCustomAttributes(typeof(CreateFile), category);
             builder.AddCustomAttributes(typeof(CreateFolder), category);
             builder.AddCustomAttributes(typeof(Delete), category);
             builder.AddCustomAttributes(typeof(DownloadFile), category);
             builder.AddCustomAttributes(typeof(DownloadFolderAsZip), category);
+            builder.AddCustomAttributes(typeof(GetFolderContent), category);
+            builder.AddCustomAttributes(typeof(Move), category);
+            builder.AddCustomAttributes(typeof(UploadFile), category);
             builder.AddCustomAttributes(typeof(WithDropboxSession), category);
 
             MetadataStore.AddAttributeTable(builder.CreateTable());

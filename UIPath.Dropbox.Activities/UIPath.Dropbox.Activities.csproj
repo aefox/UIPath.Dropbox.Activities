@@ -64,12 +64,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AsyncTaskCodeActivity.cs" />
-    <Compile Include="AsyncTaskNativeActivity.cs" />
-    <Compile Include="AsyncTaskNativeImplementation.cs" />
-    <Compile Include="BookmarkResumptionHelper.cs" />
-    <Compile Include="ContinuableAsyncCodeActivity.cs" />
-    <Compile Include="ContinuableAsyncNativeActivity.cs" />
     <Compile Include="Copy.cs" />
     <Compile Include="CreateFile.cs" />
     <Compile Include="CreateFolder.cs" />
@@ -107,6 +101,7 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
+  <Import Project="..\Shared\UiPath.Dropbox.Shared.Activities\UiPath.Dropbox.Shared.Activities.projitems" Label="Shared" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

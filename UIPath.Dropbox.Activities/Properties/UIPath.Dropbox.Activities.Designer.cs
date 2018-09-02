@@ -79,6 +79,15 @@ namespace UIPath.Dropbox.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Download to folder.
+        /// </summary>
+        internal static string DownloadFolder {
+            get {
+                return ResourceManager.GetString("DownloadFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dropbox session not found. You need to run this activity inside WithDropboxSession..
         /// </summary>
         internal static string DropboxSessionNotFoundException {
@@ -210,6 +219,15 @@ namespace UIPath.Dropbox.Activities.Properties {
         internal static string UploadFolder {
             get {
                 return ResourceManager.GetString("UploadFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zip file name.
+        /// </summary>
+        internal static string ZipFileName {
+            get {
+                return ResourceManager.GetString("ZipFileName", resourceCulture);
             }
         }
     }

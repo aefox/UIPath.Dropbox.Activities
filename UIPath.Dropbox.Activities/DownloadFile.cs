@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 using UIPath.Dropbox.Activities.Properties;
+using UIPath.Dropbox.Shared.Activities;
 
 namespace UIPath.Dropbox.Activities
 {
@@ -13,6 +14,11 @@ namespace UIPath.Dropbox.Activities
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.FilePath))]
         public InArgument<string> FilePath { get; set; }
+
+        [RequiredArgument]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.DownloadFolder))]
+        public InArgument<string> DownloadFolder { get; set; }
 
         // TODO: For a better customization/user experience add InArgument<string> DownloadLocation
 
@@ -26,7 +32,7 @@ namespace UIPath.Dropbox.Activities
                 throw new InvalidOperationException(Resources.DropboxSessionNotFoundException);
             }
 
-            await dropboxSession.DownloadFileAsync(FilePath.Get(context), cancellationToken);
+            await dropboxSession.DownloadFileAsync(FilePath.Get(context), DownloadFolder.Get(context), cancellationToken);
 
             return (asyncCodeActivityContext) => { };
         }

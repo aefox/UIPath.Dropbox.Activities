@@ -21,5 +21,7 @@ token for your own Dropbox account.
 https://www.dropbox.com/developers/documentation/dotnet#install
 
 ## Todo's
-[] 
+[] add extra authentication mechanism
+[] add exception handling
+[] dropbox business client support
 [] dropbox team client support

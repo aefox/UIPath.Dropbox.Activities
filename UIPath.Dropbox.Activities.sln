@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIPath.Dropbox", "UIPath.Dr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DropboxTest", "DropboxTest\DropboxTest.csproj", "{22F9A39F-A1A6-4F06-9B63-8611F33D7EAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIPath.Dropbox.CustomActivities", "UIPath.Dropbox.CustomActivities\UIPath.Dropbox.CustomActivities.csproj", "{5426121B-629A-47DA-AF16-2165017545BD}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIPath.Dropbox.Activities.Design", "UIPath.Dropbox.Activities.Design\UIPath.Dropbox.Activities.Design.csproj", "{4E907CF3-4A0D-4C81-BEC0-1DEAA6F58995}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{4653E537-4707-4367-9EA9-5EE5C2448D54}"
@@ -20,7 +18,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{4653E5
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{0D090965-D736-4108-95FC-ED50A3756CA1}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UIPath.Dropbox.Shared.Activities", "Shared\UIPath.Dropbox.Shared.Activities\UIPath.Dropbox.Shared.Activities.shproj", "{C78D947B-2B44-453C-A69B-262DEF6F89BE}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Shared\UIPath.Dropbox.Shared.Activities\UIPath.Dropbox.Shared.Activities.projitems*{c78d947b-2b44-453c-a69b-262def6f89be}*SharedItemsImports = 13
+		Shared\UIPath.Dropbox.Shared.Activities\UIPath.Dropbox.Shared.Activities.projitems*{e7a087b5-16be-4485-a71e-8ece30fc01a3}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
@@ -52,14 +58,6 @@ Global
 		{22F9A39F-A1A6-4F06-9B63-8611F33D7EAF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{22F9A39F-A1A6-4F06-9B63-8611F33D7EAF}.Release|x64.ActiveCfg = Release|Any CPU
 		{22F9A39F-A1A6-4F06-9B63-8611F33D7EAF}.Release|x64.Build.0 = Release|Any CPU
-		{5426121B-629A-47DA-AF16-2165017545BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5426121B-629A-47DA-AF16-2165017545BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5426121B-629A-47DA-AF16-2165017545BD}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{5426121B-629A-47DA-AF16-2165017545BD}.Debug|x64.Build.0 = Debug|Any CPU
-		{5426121B-629A-47DA-AF16-2165017545BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5426121B-629A-47DA-AF16-2165017545BD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5426121B-629A-47DA-AF16-2165017545BD}.Release|x64.ActiveCfg = Release|Any CPU
-		{5426121B-629A-47DA-AF16-2165017545BD}.Release|x64.Build.0 = Release|Any CPU
 		{4E907CF3-4A0D-4C81-BEC0-1DEAA6F58995}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4E907CF3-4A0D-4C81-BEC0-1DEAA6F58995}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E907CF3-4A0D-4C81-BEC0-1DEAA6F58995}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -71,6 +69,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C78D947B-2B44-453C-A69B-262DEF6F89BE} = {0D090965-D736-4108-95FC-ED50A3756CA1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3C91569F-0F6C-46D9-8288-7F9E78B71E5D}

@@ -2,7 +2,7 @@
 using System.Activities;
 using System.Diagnostics;
 
-namespace UIPath.Dropbox.Activities
+namespace UIPath.Dropbox.Shared.Activities
 {
     public abstract class ContinuableAsyncNativeActivity : AsyncTaskNativeActivity
     {

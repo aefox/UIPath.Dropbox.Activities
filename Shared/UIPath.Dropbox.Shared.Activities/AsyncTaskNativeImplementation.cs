@@ -3,7 +3,7 @@ using System.Activities;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace UIPath.Dropbox.Activities
+namespace UIPath.Dropbox.Shared.Activities
 {
     internal struct AsyncTaskNativeImplementation
     {
