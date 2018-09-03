@@ -54,5 +54,11 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UIPath.Dropbox\UIPath.Dropbox.csproj">
+      <Project>{39087860-27dc-49d8-b6c4-8abcd38b712c}</Project>
+      <Name>UIPath.Dropbox</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

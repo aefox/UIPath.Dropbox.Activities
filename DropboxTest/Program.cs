@@ -1,122 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dropbox.Api;
-using Dropbox.Api.Files;
+﻿using System.Threading.Tasks;
+using UIPath.Dropbox;
 
 namespace DropboxTest
 {
+    /// <summary>
+    /// This is a console program which can be used to test out the UIPath.Dropbox.DropboxSession app connector.
+    /// To use DropboxSession you'll need a dropbox auth token. Checkout README.md for details on how to get one.
+    /// </summary>
     class Program
     {
 
-        static int Main(string[] args)
+        static void Main(string[] args)
         {
             var instance = new Program();
 
-            var task = Task.Run((Func<Task<int>>)instance.Run);
+            var task = Task.Run(instance.Run);
 
             task.Wait();
-
-            return task.Result;
         }
 
-        private async Task<int> Run()
+        private async Task Run()
         {
-            try
+            var cancellationToken = new System.Threading.CancellationToken();
+
+            // The first step in using the DropboxSession is to always instantiate it with an auth token, which is mandatory
+            using (DropboxSession dropboxSession = new DropboxSession("<YOUR DROPBOX AUTH TOKEN HERE>"))
             {
-                //DropboxClientConfig clientConfig = new DropboxClientConfig("UIPath.PowerUp.Automation");
-                //DropboxAppClient appClient = new DropboxAppClient("f7jp1uvyoyjc3ie", "h9vxyb1g6tklnau");
-
-                //DropboxClient client = new DropboxClient("iHRAJv9oK7AAAAAAAAALcTQzwWMNf_iJr-FQocCPZghcDSQ51fzE8Wee8TNXo1ra");
-                //var list = await client.Files.ListFolderAsync("");
-
-                //return list.Entries.Count;
-
-                using (var dbx = new DropboxClient("iHRAJv9oK7AAAAAAAAALcTQzwWMNf_iJr-FQocCPZghcDSQ51fzE8Wee8TNXo1ra"))
-                {
-                    var full = await dbx.Users.GetCurrentAccountAsync();
-                    Console.WriteLine("{0} - {1}", full.Name.DisplayName, full.Email);
-
-                    //await ListRootFolder(dbx);
-
-                    //await Upload(dbx, "/test-folder", "test-file.txt", "file test content");
-
-                    //await ListRootFolder(dbx);
-
-                    var x = await ListRootFolder(dbx, "", true);
-
-                    //var x = await dbx.Files.GetMetadataAsync("/test-folder");
-                    return 1;
-                }
-            }
-            catch (Exception ex)
-            {
-                var x = ex;
-                return 0;
-            }
-        }
-
-        async Task<IEnumerable<Metadata>> ListRootFolder(DropboxClient dbx, string path = "", bool recursive = false)
-        {
-            List<Metadata> folderContent = new List<Metadata>();
-            ListFolderResult list = await dbx.Files.ListFolderAsync(path);
-
-            //await Task.Factory.FromAsync(_dropboxClient.Files.BeginListFolder(path, recursive), _dropboxClient.Files.EndListFolder);
-
-            folderContent.AddRange(list.Entries.Where(f => f.IsFile).ToList());
-
-            //foreach (var item in list.Entries.Where(i => i.IsFile))
-            //{
-            //    Console.WriteLine("F{0,8} {1}", item.AsFile.Size, item.Name);
-            //}
-
-            if (recursive)
-            {
-                foreach (var folder in list.Entries.Where(i => i.IsFolder))
-                {
-                    //Console.WriteLine("D  {0}/", item.Name);
-                    folderContent.AddRange(await ListRootFolder(dbx, folder.PathLower, recursive));
-                }
-            }
-
-            return folderContent;
-
-
-
-            //var list = await dbx.Files.ListFolderAsync(path);
-
-            //// show folders then files
-            //foreach (var item in list.Entries.Where(i => i.IsFolder))
-            //{
-            //    Console.WriteLine("D  {0}/", item.Name);
-            //}
-
-            //foreach (var item in list.Entries.Where(i => i.IsFile))
-            //{
-            //    Console.WriteLine("F{0,8} {1}", item.AsFile.Size, item.Name);
-            //}
-        }
-
-        async Task Upload(DropboxClient dbx, string folder, string file, string content)
-        {
-            using (var mem = new MemoryStream(Encoding.UTF8.GetBytes(content)))
-            {
-                var updated = await dbx.Files.UploadAsync(
-                    folder + "/" + file,
-                    WriteMode.Overwrite.Instance,
-                    body: mem);
-                Console.WriteLine("Saved {0}/{1} rev {2}", folder, file, updated.Rev);
-            }
-        }
-
-        async Task Download(DropboxClient dbx, string folder, string file)
-        {
-            using (var response = await dbx.Files.DownloadAsync(folder + "/" + file))
-            {
-                Console.WriteLine(await response.GetContentAsStringAsync());
+                // Once initialization is done you can use the dropboxSession object to interact with Dropbox
+                await dropboxSession.CreateFolderAsync("/demo1", cancellationToken);
+                await dropboxSession.DeleteAsync("/demo3", cancellationToken);
             }
         }
     }

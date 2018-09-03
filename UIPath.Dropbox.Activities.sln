@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIPath.Dropbox.Activities",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIPath.Dropbox", "UIPath.Dropbox\UIPath.Dropbox.csproj", "{39087860-27DC-49D8-B6C4-8ABCD38B712C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DropboxTest", "DropboxTest\DropboxTest.csproj", "{22F9A39F-A1A6-4F06-9B63-8611F33D7EAF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DropboxConnectorTestApp", "DropboxTest\DropboxConnectorTestApp.csproj", "{22F9A39F-A1A6-4F06-9B63-8611F33D7EAF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIPath.Dropbox.Activities.Design", "UIPath.Dropbox.Activities.Design\UIPath.Dropbox.Activities.Design.csproj", "{4E907CF3-4A0D-4C81-BEC0-1DEAA6F58995}"
 EndProject
